@@ -1,0 +1,85 @@
+body{
+	font-family:'微软雅黑','Arial';
+}
+.imglist{
+	list-style-position: inside;
+	width:980px;
+	margin:0px auto;
+}
+.imglist img{
+	display:block;
+	width:100%;
+	border:none;
+}
+.imglist li{
+	margin-top:30px;
+	padding-bottom:5px;
+	border:1px solid #ccc;
+	box-shadow:0px 7px 5px rgba(0,0,0,0.2);
+	padding:20px;
+	list-style:none;
+}
+.imglist li:hover{
+	animation:heart .5s;
+	animation-iteration-count: infinite;
+	animation-direction: alternate;
+}
+.imglist li a{
+	color:#333;
+	text-decoration: none;
+}
+.ye{
+	margin-top:50px;
+	padding-bottom:30px;
+	text-align:center;
+}
+.ye a{
+	color:#999;
+	text-decoration: none;
+}
+.title{
+	font-size:3em;
+}
+.form-style input[tpye='password'],.form-style input[tpye='text']{
+	//width:100%;
+	display:block;
+}
+.loginform{
+	width:980px;
+	margin:0px auto;
+	left:0px;
+	right:0px;
+	position:absolute;
+	top:30%;
+	margin-top:-30px;
+	padding:10px;
+	border:1px solid #ccc;
+}
+.loginform label{
+	display:block;
+	color:#999;
+}
+.loginform input[type='password']{
+	width:80%;
+	padding:0px 10px;
+	display:inline-block;
+	box-sizing:border-box;
+	height:40px;
+	line-height:40px;
+	border:1px solid #333;
+}
+.loginform input[type='submit']{
+	width:18%;
+	margin-left:1%;
+	height:40px;
+	line-height:40px;
+	border:1px solid #333;
+}
+@keyframes heart{
+	to {
+		border-color:rgba(255,120,0,0.5);
+		border-width:5px;
+		border-radius:10px;
+		box-shadow:0px 0px 15px rgba(255,120,0,0.5);
+	}
+}
