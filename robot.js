@@ -5,6 +5,7 @@ var hModel = require('./models/db').hModel;
 
 function saveData(data){
 	var surl = 'http://www.cilizhushou.com/search/'+data.fan+'/1';
+
 	superagent.get(surl).end(function(err,sres){
 		if(err){
 			return; //出现错误就返回
@@ -12,7 +13,7 @@ function saveData(data){
 		var $ = cheerio.load(sres.text);
 		var goturl = $('.x-item .tail .title').eq(0).attr('href');
 		if(!goturl){
-		 fs.writeFileSync('Robot.log','没有ed2k,搜索内容为: '+data.fan+'\r\n\r\n',{encoding:'utf-8',flag:'a'},function(){});
+		 fs.writeFileSync('Robot.log','没有ed2k,搜索内容为: '+data.fan+'\r\n\r\n',{encoding:'utf-8',flag:'a+'},function(){});
 		 return;
 		}
 		var h = new hModel({
@@ -38,10 +39,11 @@ function getJavFan(){
 			clearTimeout(timeout); //如果还有有后续页，就不关掉查找器
 			var $ = cheerio.load(sres.text);
 			$('#content .post').each(function(idx,ele){
+				
 				var title=$(".posttitle a",ele).text();
 				var fan = title.match(/\[[^\]]+\]/g);
 				if(!fan){
-					fs.writeFileSync('Robot.log','标题中没有番号,标题为: '+title+'\r\n\r\n',{encoding:'utf-8',flag:'a'},function(){});
+					fs.writeFileSync('Robot.log','标题中没有番号,标题为: '+title+'\r\n\r\n',{encoding:'utf-8',flag:'a+'},function(){});
 					return;
 				} //如果没有番号就返回
 				fan = fan[0].replace(/\[/g,'').replace(/\]/g,'');
@@ -63,7 +65,7 @@ function getJavFan(){
 			clearInterval(timer);
 		},60000);
 		page++;
-	},6000)
+	},600)
 }
 
 function getJavBus(){
@@ -115,5 +117,5 @@ function getJavBus(){
 		});
 	}); 
 }
-getJavBus();
+//getJavBus();
 getJavFan();
