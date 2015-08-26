@@ -6,6 +6,8 @@ var hSchema = new mongoose.Schema({
     title:String,   //定义一个属性name，类型为String
     fan:String,
     img:String,
+    tags:Array,
+    pv:Number,
     ed2k:String
 });
 var userSchema = new mongoose.Schema({
