@@ -65,7 +65,7 @@ function getJavFan(){
 			clearInterval(timer);
 		},60000);
 		page++;
-	},600)
+	},6000)
 }
 
 function getJavBus(){
