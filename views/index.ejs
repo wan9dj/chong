@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html ng-app='myapp'>
+	<head>
+		<meta name="renderer" content="webkit">
+		<meta name="viewport" content="width=device-width,height=device-height,initial-scale=1.0,user-scalable=no">
+		<link rel='stylesheet' type='text/css' href='/stylesheet/style.css' />
+		<!--<script type="text/javascript" src="//cdn.bootcss.com/angular.js/1.4.5/angular.min.js"></script>
+		<script type="text/javascript" src="//cdn.bootcss.com/angular-ui-router/0.2.15/angular-ui-router.min.js"></script>-->
+		<script type="text/javascript" src="/javascripts/angular.js"></script>
+		<script type="text/javascript" src="/javascripts/angular-ui-router.js"></script>
+		<!-- myapp -->
+		<script type="text/javascript" src="/javascripts/myapp/app.js"></script>
+		<script type="text/javascript" src="/javascripts/myapp/moviesStorage.js"></script>
+		<script type="text/javascript" src="/javascripts/myapp/mfilterStorage.js"></script>
+		<script type="text/javascript" src="/javascripts/myapp/mainCtrl.js"></script> 
+		<script type="text/javascript" src="/javascripts/myapp/filters.js"></script>
+		<!-- stylesheet -->
+		<link rel="stylesheet" type="text/css" href="/stylesheet/style.css">
+	</head>
+	<body>
+		<header>
+			<h1>小虫子</h1>
+		</header>
+		<section id="body">
+			<ui-view></ui-view>
+			<div id="mright">
+				<h2>浏览排名</h2>
+			</div>
+		</section>
+		<script type="text/ng-template" id="index.html">
+			<div class="mleft" ng-cloak>
+				<ul class="movielist">
+					<li class="clearfix" ng-repeat="m in tmpmovies | limitToNum:5">
+						<div>
+							<!--<img src="{{m.img}}"/>-->
+						</div>
+						<div>
+							<h5>{{m.title}}</h5>
+							<label><input type="button" ng-show="!ckd" ng-click="ckd = !ckd" value="ed2k pv:{{m.pv}}" />
+							<input type="text" ng-show="ckd" ng-blur="ckd = !ckd" ng-focus="AddPv($index)" ng-value="m.ed2k" /></label>
+							<p class="tags">
+								<span ng-repeat="t in m.tags">
+									{{t}}
+								</span>
+							</p>
+							<div class="pprocess clearfix">
+								<div style="width:{{m.pgood/m.pv*100}}%" class="pgood"></div>
+								<div style="width:{{m.pgood/m.pv*100}}%" class="pbad"></div>
+							</div>
+							<div> <!-- {dis:m._id in mfilterstore} -->
+								<span ng-click="Ping($index,'good')" ng-class="{dis:cping[$index]}" class="btn bnor">好</span>
+								<span ng-click="Ping($index,'bad')" ng-class="{dis:cping[$index]}" class="btn bbad">差</span>
+								<span class="btn bdel">直接删除</span>
+								<span class="btn bgray">不再推荐</span>
+							</div>
+						</div>
+					</li>
+				</ul>
+				<p class="pages">
+					<input type="button" class="prev" value="prev" ng-show="nowPage>0" ng-click="PrevPage()">
+					<input type="button" class="next" value="next" ng-click="NextPage()">
+					<span ng-bind="nowPage"></span>
+					<a ui-sref="page({page:{{nowPage+1}}})">{{nowPage+1}}</a>
+				</p>
+			</div>
+		</script>
+	</body>
+</html>

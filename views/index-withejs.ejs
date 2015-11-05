@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html ng-app='myapp'>
+	<head>
+		<meta name="renderer" content="webkit">
+		<link rel='stylesheet' type='text/css' href='/stylesheet/style.css' />
+		<script type="text/javascript" src="//cdn.bootcss.com/angular.js/1.4.5/angular.min.js"></script>
+		<script type="text/javascript" src="//cdn.bootcss.com/angular-ui-router/0.2.15/angular-ui-router.min.js"></script>
+		<script type="text/javascript" src="/javascripts/myapp/app.js"></script>
+		<script type="text/javascript" src="/javascripts/myapp/moviesStorage.js"></script>
+		<script type="text/javascript" src="/javascripts/myapp/mainCtrl.js"></script>
+	</head>
+	<body>
+		<h1 class="title"><%= title%></h1>
+		<ul class='imglist'>
+			<% hs.forEach(function(h){%>
+				<li>
+					<!--<img src='<%= h.img%>' />-->
+					<h5><a href='<%= h.ed2k%>' title='<%= h.title%>'><%= h.title%></a></h5>
+				</li>
+			<%})%>
+		</ul>
+		<div class='ye'>
+		<% var page = page?page:'0'; var q = page.length==1?'':page.substring(0,page.length-1); var b = page?parseInt(page.substring(page.length-1)):0;%>
+			<% if(isfirst=='false'){ %>
+				<a href='/?page=<%= parseInt(page)-1%>'> << </a>
+			<%} %>
+			
+			<% for(var b1 = 0;b1<b;b1++){ %>
+			<a href='/?page=<%= q+b1 %>'><%= q+b1 %></a>
+			<% }%>
+			<b><%= page %></b>
+			<% if(isend=='false'){ %>
+			<% for(var b2 = b+1;b2<10;b2++){ %>
+			<a href='/?page=<%= q+b2%>'><%= q+b2 %></a>
+			<% }%>
+
+				<a href='/?page=<%= parseInt(page)+1%>'> >>	</a>
+			<%} %>
+		</div>
+	</body>
+</html>

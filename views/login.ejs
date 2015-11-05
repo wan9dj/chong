@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<link rel='stylesheet' type='text/css' href='/stylesheet/style.css' />
+	</head>
+	<body>
+		<form class='form-style loginform'>
+			<fieldset>
+				<legend><%= title%></legend>
+				<label for="keyword">key:</label>
+				<input type="password" name="keyword" />
+				<input type="button" id="subbtn" value="enter" />
+			</fieldset>
+		</form>
+
+		<script type="text/javascript">
+			function createXmlRequest(){
+				if(window.ActiveXObject){
+					return new ActiveXObject('Microsoft.XMLHTTP');	
+				}else{
+					return new XMLHttpRequest();
+				}
+			}
+			/*event.prototype.preventDefault = function(){
+				if(event.preventDefault){
+					return  event.preventDefault;
+				}else{
+					return function(){
+						return false;
+					}
+				}
+			}*/
+			var ajax;
+			document.getElementById('subbtn').onclick = function(e){
+				ajax = createXmlRequest();
+				var url = '/login';
+				ajax.open('POST',url,true);
+				ajax.setRequestHeader("Content-Type","application/x-www-form-urlencoded");  
+				ajax.send('keyword='+document.forms[0].keyword.value);
+				ajax.onreadystatechange = function(){
+					if(ajax.status==200){
+						var status = JSON.parse(ajax.responseText);
+						//eval('var status ='+ ajax.responseText);
+						console.log(document.forms[0].classList);
+						document.forms[0].classList.add('close');
+						setTimeout(function(){
+							window.location.href = status.url;
+						},2000);
+					};
+				}
+				e.preventDefault();
+			}
+		</script>
+	</body>
+</html>
