@@ -1,0 +1,160 @@
+*{
+	margin:0px;
+	padding:0px;
+}
+input::-webkit-input-placeholder{
+	padding-left:5px;
+}
+body{
+	font-family:"微软雅黑","Arial";
+	color:#333;
+	background-color:rgba(235,243,249,.1);
+	height:100%;
+	overflow:hidden;
+}
+section,header{
+	display:block;
+}
+#body{
+	padding-left:50px;
+}
+#showbox{
+	font-size:40px;
+	height:1.5em;
+	line-height:1.5em;
+}
+.leftBox{
+	width:980px;
+	margin-top:20px;
+}
+.rightBox{
+	font-size:14px;
+	width:280px;
+	height:80%;
+	padding:5px;
+	box-sizing:border-box;
+	border:1px solid #ccc;
+	right:50px;
+	top:90px;
+	position:fixed;
+}
+.movielist{
+	border-radius:5px;
+	box-shadow:0px 30px 50px rgba(150,150,150,.1);
+	clear:both;
+}
+.movielist:after{
+	content:" ";
+	display:block;
+	height:0px;
+	overflow:hidden;
+}
+.movielist li{
+	list-style:none;
+	float:left;
+	box-sizing:border-box;
+	padding:10px;
+	width:20%;
+}
+.movielist li>div{
+	width:100%;
+}
+.movielist li>div:first-child{
+	height:180px;
+	border:1px solid #ddd;
+	background:#fff;
+	overflow:hidden;
+}
+.movielist img{
+	width:100%;
+	box-sizing:border-box;
+	padding:2px;
+}
+.movielist .ping{
+	display:table;
+	width:100%;
+	margin-top:10px;
+}
+.movielist .ping i{
+	display:table-cell;
+}
+.movielist .ping i:hover{
+	cursor:pointer;
+}
+.movielist h5{
+	margin:10px 0px;
+	font-size:16px;
+	height:20px;
+	width:100%;
+	overflow:hidden;
+	text-overflow:ellipsis;
+}
+.pprocess{
+	display:table;
+	width:100%;
+}
+.dis{
+	color:#ccc;
+}
+.dis span.sub{
+	background:#ccc;
+}
+#refresh{
+	margin-top:20px;
+	text-align:right;
+	font-size:12px;
+	position:fixed;
+	bottom:10px;
+	left:10px;
+}
+#refresh i:hover{
+	cursor:pointer;
+}
+.searchBox{
+	position:relative;
+}
+.searchBox ul,.searchBox input{
+	width:95%;
+	display:block;
+	margin:0px auto;
+}
+.searchBox input{
+	height:30px;
+}
+.searchBox ul{
+	list-style-position:inside;
+	background:#fff;
+}
+.movieBox{
+	border-top:5px solid #666;
+	padding-top:5px;
+	margin:5px auto 0px;
+	width:95%;
+}
+.movieBox img{
+	width:100%;
+	border:1px solid #ccc;
+	box-sizing:border-box;
+	margin:5px 0px;
+}
+.movieBox input{
+	height:18px;
+	width:100%;
+	margin-top:3px;
+}
+/* font-awesome reset */
+[class^="icon-"]:before,[class*=" icon-"]:before{
+	position:relative;
+	margin-right:5px;
+}
+[class^="icon-"] .sub,[class*=" icon-"] .sub{
+	position:absolute;
+	margin-top:-5px;
+	margin-left:-5px;
+	width:16px;
+	height:16px;
+	font-size:12px;
+	border-radius:100%;
+	background:#999;
+	color:#fff;
+}

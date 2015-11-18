@@ -33,6 +33,14 @@ module.exports = function(app){
 			res.end(JSON.stringify(hs));
 		})
 	});
+	app.get('/api/rand',function(req,res){
+		var query = hModel.find({random:{$near:[Math.random(),0]}});
+		var limit = req.query['limit'];
+		query.limit(limit);
+		query.exec(function(err,hs){
+			res.end(JSON.stringify(hs));
+		})
+	});
 	app.get('/api/filter',function(req,res){
 		userModel.findById(req.session.user['_id']).exec(function(err,u){	
 			var userFilter = {
@@ -67,8 +75,8 @@ module.exports = function(app){
 			}
 		})
 		*/
-		res.render('index',{
-					title:'内容词典'
+		res.render('index2',{
+					title:'人人电影'
 				});
 	})
 	//post routes

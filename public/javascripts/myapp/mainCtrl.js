@@ -5,7 +5,7 @@
 		//控制
 		var mfilter  = mfilterstore.filter;
 		var movies = $scope.movies = moviestore.movies;
-		var limit = 5;
+		var limit = 10;
 		$scope.nowPage=$stateParams.page?+$stateParams.page:0;
 		$scope.tmpmovies=$scope.movies;
 		$scope.NextPage = function(){
@@ -20,15 +20,20 @@
 			movies[limit*$scope.nowPage+idx].pv++;
 			moviestore.save();
 		};
+		$scope.Refresh = function(){
+			moviestore.get();
+		};
 
 		var cping = $scope.cping = [];
 		$scope.Ping = function(idx,ptype){
 			if(cping[idx]){ return;} //判断是否已经为评价过了的
 			switch(ptype){
 				case 'good':
+					movies[limit*$scope.nowPage+idx].pv++;
 					movies[limit*$scope.nowPage+idx].pgood++; //limit*$scope.nowPage+idx 根据我自己的规则，下一页是直接在原有数组上面直接加数组，所以，当前页面的movie的索引就要加上前面的页数的索引
 				break;
 				case 'bad':
+					movies[limit*$scope.nowPage+idx].pv++;
 					movies[limit*$scope.nowPage+idx].pbad++;
 				break;
 			};
@@ -39,6 +44,7 @@
 			mfilterstore.savePing(movies[limit*$scope.nowPage+idx]['_id']);
 		};
 		$scope.$watch('movies',function(newval,oldval){
+			console.log('change');
 			angular.copy([],cping);
 			for(var m=limit*$scope.nowPage;m<movies.length;m++){
 				for(var p=0;p<mfilter.ping.length;p++){

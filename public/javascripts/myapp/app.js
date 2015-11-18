@@ -9,7 +9,7 @@
 	            controller:'mainCtrl',
 	            resolve:{
 	            	moviestore:function(moviesStorage){
-	            		moviesStorage.get();
+	            		moviesStorage.get(10);
 	            		return moviesStorage;
 	            	},
 	            	mfilterstore:function(mfilterStorage){
@@ -18,7 +18,7 @@
 	            	}
 	            }
 	        })
-	        .state("page", {
+	       /* .state("page", { // 这个版本没有这个功能
 	            url: "/:page",
 	         	templateUrl: "index.html",
 	            controller:'mainCtrl',
@@ -33,6 +33,6 @@
 	            		return mfilterStorage;
 	            	}
 	            }
-	        })
+	        })*/
 	});
 })();

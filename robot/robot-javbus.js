@@ -12,7 +12,7 @@ function getJavBus(){
 	(function getNextPage(){
 		setTimeout(function(){
 			console.log('start, page: '+page);
-			superagent.get('http://www.javbus.co/page/'+page).end(function(err,sres){
+			superagent.get('http://www.javbus.me/page/'+page).end(function(err,sres){
 				if(err){page++;
 					getNextPage();
 					return console.log(err);

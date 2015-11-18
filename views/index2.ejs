@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html ng-app='myapp'>
+	<head>
+		<meta name="renderer" content="webkit">
+		<meta name="viewport" content="width=device-width,height=device-height,initial-scale=1.0,user-scalable=no">
+		<!--<script type="text/javascript" src="//cdn.bootcss.com/angular.js/1.4.5/angular.min.js"></script>
+		<script type="text/javascript" src="//cdn.bootcss.com/angular-ui-router/0.2.15/angular-ui-router.min.js"></script>-->
+		<script type="text/javascript" src="/javascripts/angular.js"></script>
+		<script type="text/javascript" src="/javascripts/angular-ui-router.js"></script>
+		<!-- myapp -->
+		<script type="text/javascript" src="/javascripts/myapp/app.js"></script>
+		<script type="text/javascript" src="/javascripts/myapp/moviesStorage.js"></script>
+		<script type="text/javascript" src="/javascripts/myapp/mfilterStorage.js"></script>
+		<script type="text/javascript" src="/javascripts/myapp/mainCtrl.js"></script> 
+		<script type="text/javascript" src="/javascripts/myapp/filters.js"></script>
+		<!-- otherjs -->
+		<script type="text/javascript" src="/javascripts/animate-words.js"></script>
+		<!-- stylesheet -->
+		<link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/font-awesome/3.0.2/css/font-awesome.min.css">
+		<link rel="stylesheet" type="text/css" href="/stylesheet/style2.css">
+	</head>
+	<body>
+		<section id="body">
+			<header>
+				<h1 id="showbox"></h1>
+			</header>
+			<ui-view></ui-view>
+		</section>
+		<script>
+			animateWords(['欢迎你!','这里是小虫。'],1000,document.getElementById('showbox'));
+		</script>
+		<script type="text/ng-template" id="index.html">
+			<div ng-cloak>
+				<ul class="movielist leftBox">
+					<li class="clearfix" ng-repeat="m in tmpmovies">
+						<div>
+							<img src="{{m.img}}"/>
+						</div>
+						<div>
+							<h5>{{m.title}}</h5>
+							<!--<label><input type="button" ng-show="!ckd" ng-click="ckd = !ckd" value="ed2k pv:{{m.pv}}" />
+							<input type="text" ng-show="ckd" ng-blur="ckd = !ckd" ng-focus="AddPv($index)" ng-value="m.ed2k" /></label>-->
+							<p class="tags">
+								<span ng-repeat="t in m.tags">
+									{{t}}
+								</span>
+							</p>
+							<div class="ping"> <!-- {dis:m._id in mfilterstore} -->
+								<i title="好" ng-click="Ping($index,'good')" ng-class="{dis:cping[$index]}" class="icon-thumbs-up">
+									<span class='sub'>{{m.pgood}}</span>
+								</i>
+								<i title="差" ng-click="Ping($index,'bad')" ng-class="{dis:cping[$index]}" class="icon-thumbs-down">
+									<span class='sub'>{{m.pbad}}</span>
+								</i>
+								<i title="直接删除" class="icon-trash"></i>
+								<i title="不再推荐" class="icon-warning-sign"></i>
+							</div>
+						</div>
+					</li>
+				</ul>
+				<div class="rightBox">
+					<form class="searchBox">
+						<input type="text" placeholder="搜索电影" />
+						<ul>
+							<li>搜索列表</li>
+							<li>搜索列表</li>
+							<li>搜索列表</li>
+						</ul>
+					</form> 
+					<div class="movieBox">
+						<img src="/images/6479.jpg" />
+						<h3>标题</h3>
+						<h5>磁力地址</h5>
+						<div>
+							<p>
+								<input placeholder="地址1" type="text" />
+							</p>
+							<p>
+								<input placeholder="地址2" type="text" />
+							</p>
+						</div>
+					</div>
+				</div>
+				<div id="refresh">
+					<i ng-click="Refresh()" class="icon-refresh">再换一批</i>
+				</div>
+			</div>
+		</script>
+	</body>
+</html>
