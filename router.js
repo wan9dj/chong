@@ -24,7 +24,7 @@ module.exports = function(app){
 	app.post('/api/save',checkNotLogin);
 	// get routes
 	app.get('/api',function(req,res){
-		var query = hModel.find();
+		var query = hModel.find({isDel:false});
 		var skip = req.query['skip'];
 		var limit = req.query['limit'];
 		query.skip(skip);
@@ -142,5 +142,22 @@ module.exports = function(app){
 			})(d)
 		};
 		res.end('save end');
+	});
+	// delete请求
+	app.delete('/api/del',function(req,res){
+		var find = {
+			_id:ObjectId(req.body['_id'])
+		};
+		var update = {
+			$set:{isDel:true}
+		};
+		console.log('delete sth');
+		hModel.update(find,update,{},function(err){ 
+			if(err){
+				return console.log('update ping err');
+			}
+			console.log('delete ok!');
+			res.end('delete success');
+		});
 	});
 }

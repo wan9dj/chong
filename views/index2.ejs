@@ -33,7 +33,7 @@
 			<div ng-cloak>
 				<ul class="movielist leftBox">
 					<li class="clearfix" ng-repeat="m in tmpmovies">
-						<div>
+						<div ng-click="showXX($index)">
 							<img src="{{m.img}}"/>
 						</div>
 						<div>
@@ -52,7 +52,7 @@
 								<i title="差" ng-click="Ping($index,'bad')" ng-class="{dis:cping[$index]}" class="icon-thumbs-down">
 									<span class='sub'>{{m.pbad}}</span>
 								</i>
-								<i title="直接删除" class="icon-trash"></i>
+								<i title="直接删除" ng-click="Delete($index)" class="icon-trash"></i>
 								<i title="不再推荐" class="icon-warning-sign"></i>
 							</div>
 						</div>
@@ -67,16 +67,13 @@
 							<li>搜索列表</li>
 						</ul>
 					</form> 
-					<div class="movieBox">
-						<img src="/images/6479.jpg" />
-						<h3>标题</h3>
+					<div class="movieBox" ng-show="tmpMovie">
+						<img src="{{tmpMovie[0].img}}" />
+						<h3>{{tmpMovie[0].title}}</h3>
 						<h5>磁力地址</h5>
 						<div>
-							<p>
-								<input placeholder="地址1" type="text" />
-							</p>
-							<p>
-								<input placeholder="地址2" type="text" />
+							<p ng-repeat="l in tmpMovie[0].ed2k">
+								<input value="{{l.ed2k}}" title="{{l.name}}" type="text" />
 							</p>
 						</div>
 					</div>

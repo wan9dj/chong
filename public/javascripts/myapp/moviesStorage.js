@@ -39,7 +39,7 @@
 				}
 			},*/
 			get:function(limit){ //v0.3版本的get，只是进行了部分修改，代码还有问题
-				var limit = limit || 5;
+				limit = limit || 5;
 				return $http({
 					url:'/api/rand?limit='+limit,
 					method:'GET',
@@ -50,8 +50,8 @@
 					//在没有使用timeout的时候，mfilter获取不到对象
 					$timeout(function(){
 						console.log('get success');
-						var newArr = store.movies.concat(res.data);
-						angular.copy(newArr,store.movies);
+						//var newArr = store.movies.concat(res.data);
+						angular.copy(res.data,store.movies);
 					},0);
 					return store.movies;
 
@@ -59,6 +59,21 @@
 					//return store.movies;
 				},function error(){
 					console.log('获取数据失败');
+				});
+			},
+			delete:function(index){
+				console.log('delete',store.movies[index]['_id']);
+				$http({
+					url:'/api/del',
+					method:'delete',
+					data:{
+						_id:store.movies[index]['_id']
+					}
+				}).then(function success(){
+					$timeout(function(){
+						store.movies.splice(index,1);
+						console.log('delete success');	
+					},0);
 				});
 			},
 			save:function(){

@@ -8,6 +8,18 @@
 		var limit = 10;
 		$scope.nowPage=$stateParams.page?+$stateParams.page:0;
 		$scope.tmpmovies=$scope.movies;
+		
+		$scope.safeApply = function(fn) {
+			var phase = this.$root.$$phase;
+			if (phase == '$apply' || phase == '$digest') {
+				if (fn && (typeof(fn) === 'function')) {
+					fn();
+				}
+			} else {
+				this.$apply(fn);
+			}
+		};
+		
 		$scope.NextPage = function(){
 			var next = ++$scope.nowPage;
 			moviestore.get(next*limit);
@@ -21,10 +33,13 @@
 			moviestore.save();
 		};
 		$scope.Refresh = function(){
-			moviestore.get();
+			moviestore.get(limit);
 		};
 
 		var cping = $scope.cping = [];
+		$scope.showXX = function(index){ // 通过传递索引改变显示内容
+			$scope.tmpMovie = movies.slice(index,index+1);
+		}
 		$scope.Ping = function(idx,ptype){
 			if(cping[idx]){ return;} //判断是否已经为评价过了的
 			switch(ptype){
@@ -37,11 +52,13 @@
 					movies[limit*$scope.nowPage+idx].pbad++;
 				break;
 			};
-			console.log();
 			cping[idx] = 'cant'; // 因为这里的cping的索引是相对于当前页面元素显示个数，然而他的$index等于这个movie在movies里面的索引，所以要减去前面的movie数据的个数
 			//angular.element(document.querySelector('.bgood')).attr;
 			moviestore.save();
 			mfilterstore.savePing(movies[limit*$scope.nowPage+idx]['_id']);
+		};
+		$scope.Delete=function(index){
+			moviestore.delete(index);
 		};
 		$scope.$watch('movies',function(newval,oldval){
 			console.log('change');
@@ -58,9 +75,5 @@
 				}
 			}
 		},true);
-
-		$scope.$watch('nowPage',function(n,o){
-			console.log('nowPage: '+n);
-		});
 	});
 })();

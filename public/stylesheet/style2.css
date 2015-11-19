@@ -112,24 +112,32 @@ section,header{
 }
 .searchBox{
 	position:relative;
+	height:8%;
 }
 .searchBox ul,.searchBox input{
 	width:95%;
 	display:block;
 	margin:0px auto;
 }
+.searchBox ul{
+	display:none;
+}
 .searchBox input{
-	height:30px;
+	height:100%;
 }
 .searchBox ul{
 	list-style-position:inside;
 	background:#fff;
+	overflow-y:auto;
 }
 .movieBox{
 	border-top:5px solid #666;
 	padding-top:5px;
-	margin:5px auto 0px;
+	margin:10px auto 0px;
 	width:95%;
+	height:90%;
+	overflow:hidden;
+	overflow-y:auto;
 }
 .movieBox img{
 	width:100%;
@@ -140,6 +148,7 @@ section,header{
 .movieBox input{
 	height:18px;
 	width:100%;
+	box-sizing:border-box;
 	margin-top:3px;
 }
 /* font-awesome reset */
