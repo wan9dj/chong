@@ -12,7 +12,7 @@ var hSchema = new mongoose.Schema({
     pbad:{type:Number,default:0},
     ed2k:Array,
     random:{type:Array,index:'2d'},
-    idDel:{type:Boolean,default:false}
+    isDel:{type:Boolean,default:false}
     });
 var userSchema = new mongoose.Schema({
     user:String,   //定义一个属性name，类型为String

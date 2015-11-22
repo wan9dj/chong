@@ -37,6 +37,7 @@ section,header{
 	right:50px;
 	top:90px;
 	position:fixed;
+	background:#fff;
 }
 .movielist{
 	border-radius:5px;
@@ -113,29 +114,53 @@ section,header{
 .searchBox{
 	position:relative;
 	height:8%;
+	z-index:1;
 }
-.searchBox ul,.searchBox input{
+.searchBox ul,.searchBox [type="text"]{
 	width:95%;
 	display:block;
 	margin:0px auto;
 }
-.searchBox ul{
-	display:none;
-}
-.searchBox input{
+.searchBox [type="text"]{
 	height:100%;
+	padding-left:5px;
+	box-sizing:border-box;
+}
+.searchBox [type='submit']{
+	position:absolute;
+	right:12px;
+	top:5px;
+	width:50px;
+	height:80%;
 }
 .searchBox ul{
 	list-style-position:inside;
 	background:#fff;
+	box-shadow:0px 3px 3px rgba(0,0,0,.3);
 	overflow-y:auto;
+	z-index:2;
+	list-style:none;
+}
+.searchBox li{
+	border-bottom:1px dashed #ddd;
+	line-height:30px;
+	padding-left:5px;
+}
+.searchBox li:hover{
+	background:rgba(0,0,0,.5);
+	color:#fff;
+}
+.searchBox p{
+	position:relative;
+	height:100%;
+	margin:0px;
 }
 .movieBox{
 	border-top:5px solid #666;
 	padding-top:5px;
 	margin:10px auto 0px;
 	width:95%;
-	height:90%;
+	height:88%;
 	overflow:hidden;
 	overflow-y:auto;
 }

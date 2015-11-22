@@ -5,6 +5,7 @@
 	}).factory('api',function($http,$timeout){
 		var store = {
 			movies:[],
+			searchList:[],
 			/*get:function(skip,limit){ //v0.1版本的get函数，对应着index.ejs
 				skip = skip || 0;
 				limit = limit || 5;
@@ -51,6 +52,8 @@
 					$timeout(function(){
 						console.log('get success');
 						//var newArr = store.movies.concat(res.data);
+						
+						console.log(res.data);
 						angular.copy(res.data,store.movies);
 					},0);
 					return store.movies;
@@ -86,6 +89,12 @@
 						console.log(res.data);
 					}
 				);
+			},
+			find:function(str,limit){
+				return $http({
+					url:'/api/find?str='+str,
+					method:'GET',
+				});
 			}
 		};
 		return store;

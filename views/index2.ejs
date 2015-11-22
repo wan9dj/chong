@@ -59,12 +59,13 @@
 					</li>
 				</ul>
 				<div class="rightBox">
-					<form class="searchBox">
-						<input type="text" placeholder="搜索电影" />
-						<ul>
-							<li>搜索列表</li>
-							<li>搜索列表</li>
-							<li>搜索列表</li>
+					<form class="searchBox" ng-submit="searchList()">
+						<p>
+							<input type="text" ng-model="searchStr" placeholder="搜索电影" />
+							<input type="submit" value="提交"/>
+						</p>
+						<ul ng-show="smovieList.length > 0">
+							<li ng-repeat="s in smovieList" ng-click="showSearch($index)">{{s.title}}</li>
 						</ul>
 					</form> 
 					<div class="movieBox" ng-show="tmpMovie">

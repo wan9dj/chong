@@ -23,18 +23,17 @@ module.exports = function(app){
 	app.get('/api/filter',checkNotLogin);
 	app.post('/api/save',checkNotLogin);
 	// get routes
-	app.get('/api',function(req,res){
-		var query = hModel.find({isDel:false});
-		var skip = req.query['skip'];
-		var limit = req.query['limit'];
-		query.skip(skip);
-		query.limit(limit);
+	app.get('/api/find',function(req,res){
+		var searchstr= req.query['str'];
+		console.log(searchstr);
+		var query = hModel.find({isDel:false,title:{$regex:searchstr}});
+		query.limit(10);
 		query.exec(function(err,hs){
 			res.end(JSON.stringify(hs));
 		})
 	});
 	app.get('/api/rand',function(req,res){
-		var query = hModel.find({random:{$near:[Math.random(),0]}});
+		var query = hModel.find({random:{$near:[Math.random(),0]},isDel:false});
 		var limit = req.query['limit'];
 		query.limit(limit);
 		query.exec(function(err,hs){

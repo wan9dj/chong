@@ -9,17 +9,6 @@
 		$scope.nowPage=$stateParams.page?+$stateParams.page:0;
 		$scope.tmpmovies=$scope.movies;
 		
-		$scope.safeApply = function(fn) {
-			var phase = this.$root.$$phase;
-			if (phase == '$apply' || phase == '$digest') {
-				if (fn && (typeof(fn) === 'function')) {
-					fn();
-				}
-			} else {
-				this.$apply(fn);
-			}
-		};
-		
 		$scope.NextPage = function(){
 			var next = ++$scope.nowPage;
 			moviestore.get(next*limit);
@@ -39,6 +28,10 @@
 		var cping = $scope.cping = [];
 		$scope.showXX = function(index){ // 通过传递索引改变显示内容
 			$scope.tmpMovie = movies.slice(index,index+1);
+		}
+		$scope.showSearch = function(index){
+			$scope.tmpMovie = $scope.smovieList.slice(index,index+1);
+			$scope.smovieList=[];
 		}
 		$scope.Ping = function(idx,ptype){
 			if(cping[idx]){ return;} //判断是否已经为评价过了的
@@ -60,6 +53,12 @@
 		$scope.Delete=function(index){
 			moviestore.delete(index);
 		};
+		$scope.searchList = function(e){
+			moviestore.find($scope.searchStr).then(function success(res){
+				$scope.smovieList = res.data;
+			});
+			return false;
+		}
 		$scope.$watch('movies',function(newval,oldval){
 			console.log('change');
 			angular.copy([],cping);
