@@ -25,7 +25,7 @@
 			moviestore.get(limit);
 		};
 
-		var cping = $scope.cping = [];
+		var cping = $scope.cping = {};
 		$scope.showXX = function(index){ // 通过传递索引改变显示内容
 			$scope.tmpMovie = movies.slice(index,index+1);
 		}
@@ -33,7 +33,11 @@
 			$scope.tmpMovie = $scope.smovieList.slice(index,index+1);
 			$scope.smovieList=[];
 		}
+		$scope.Unshow = function($index){
+			
+		}
 		$scope.Ping = function(idx,ptype){
+			console.log('idx: '+idx);
 			if(cping[idx]){ return;} //判断是否已经为评价过了的
 			switch(ptype){
 				case 'good':
@@ -45,8 +49,9 @@
 					movies[limit*$scope.nowPage+idx].pbad++;
 				break;
 			};
-			cping[idx] = 'cant'; // 因为这里的cping的索引是相对于当前页面元素显示个数，然而他的$index等于这个movie在movies里面的索引，所以要减去前面的movie数据的个数
+			//cping[idx] = 'cant'; // 因为这里的cping的索引是相对于当前页面元素显示个数，然而他的$index等于这个movie在movies里面的索引，所以要减去前面的movie数据的个数
 			//angular.element(document.querySelector('.bgood')).attr;
+			console.log('cping: ',cping);
 			moviestore.save();
 			mfilterstore.savePing(movies[limit*$scope.nowPage+idx]['_id']);
 		};
@@ -60,14 +65,12 @@
 			return false;
 		}
 		$scope.$watch('movies',function(newval,oldval){
-			console.log('change');
-			angular.copy([],cping);
-			for(var m=limit*$scope.nowPage;m<movies.length;m++){
+			for(var m=limit*$scope.nowPage;m<movies.length;m++){ // 这个操作是在页面加载的时候通过过滤添加不允许点击操作, 或者是mfilter被改变的时候不允许点击操作
 				for(var p=0;p<mfilter.ping.length;p++){
 					if(movies[m]._id === mfilter.ping[p]){
 						(function(m){
 							$timeout(function(){
-								cping[m%5] = 'cant'; //因为cping的idx值是当前页面的，而我每个页面的movie的个数是5个，所以要进行求余
+								cping[m % limit] = 'cant'; //因为cping的idx值是当前页面的，而我每个页面的movie的个数是 limit 个，所以要进行求余
 							},0);
 						})(m)
 					}

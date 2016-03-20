@@ -15,8 +15,18 @@
 					angular.copy(nfilter,mfilters.filter);
 				});
 			},
+			save:function(){
+				return $http({
+					url:'/api/saveFilter',
+					method:'post',
+					data:mfilters.filter
+				});
+			},
 			savePing:function(id){
 				mfilters.filter.ping.push(id);
+			},
+			saveUnshow:function(id){
+				mfilters.filter.unshow.push(id);
 			}
 		};
 		return mfilters;

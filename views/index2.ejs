@@ -52,8 +52,8 @@
 								<i title="差" ng-click="Ping($index,'bad')" ng-class="{dis:cping[$index]}" class="icon-thumbs-down">
 									<span class='sub'>{{m.pbad}}</span>
 								</i>
-								<i title="直接删除" ng-click="Delete($index)" class="icon-trash"></i>
-								<i title="不再推荐" class="icon-warning-sign"></i>
+								<i title="直接删除" ng-click="Delete($index);" class="icon-trash"></i>
+								<i title="不再推荐" ng-click="Unshow($index);" class="icon-warning-sign"></i>
 							</div>
 						</div>
 					</li>
@@ -62,7 +62,7 @@
 					<form class="searchBox" ng-submit="searchList()">
 						<p>
 							<input type="text" ng-model="searchStr" placeholder="搜索电影" />
-							<input type="submit" value="提交"/>
+							<input type="submit" value="搜索"/>
 						</p>
 						<ul ng-show="smovieList.length > 0">
 							<li ng-repeat="s in smovieList" ng-click="showSearch($index)">{{s.title}}</li>

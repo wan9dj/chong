@@ -142,6 +142,15 @@ module.exports = function(app){
 		};
 		res.end('save end');
 	});
+	app.post('/api/saveFilter',function(req,res){ //用来保存mfilter的操作
+		var fping = req.body['fping'];
+		var unshow = req.body['unshow'];
+		userModel.update({'_id':ObjectId(req.session.user['_id'])},{set:{'fping':req.body[d]['_id']}},{},function(err){
+			if(err){
+				console.log('update user err');
+			}
+		});
+	});
 	// delete请求
 	app.delete('/api/del',function(req,res){
 		var find = {

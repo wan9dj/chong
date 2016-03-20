@@ -3,7 +3,7 @@ var setting = require('../setting');
 var db = mongoose.createConnection(setting.host,setting.db);
 
 var hSchema = new mongoose.Schema({
-    title:{type:String,unique:true},   //定义一个属性name，类型为String
+    title:{type:String,unique:true},   //定义一个属性name,用来保存标题,类型为String
     //fan:{type:String,default:''},
     img:String,
     tags:Array,
@@ -15,8 +15,8 @@ var hSchema = new mongoose.Schema({
     isDel:{type:Boolean,default:false}
     });
 var userSchema = new mongoose.Schema({
-    user:String,   //定义一个属性name，类型为String
-    key:{type:String,unique:true},
+    user:String,   //定义一个属性name,用来保存用户名,类型为String
+    key:{type:String,unique:true},// 定义一个key值,用来保存用户名的登录key值
     fping:{type:Array,default:[],unique:true},
     funshow:{type:Array,default:[]}
 });
