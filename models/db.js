@@ -17,7 +17,7 @@ var hSchema = new mongoose.Schema({
 var userSchema = new mongoose.Schema({
     user:String,   //定义一个属性name,用来保存用户名,类型为String
     key:{type:String,unique:true},// 定义一个key值,用来保存用户名的登录key值
-    fping:{type:Array,default:[],unique:true},
+    fping:{type:Array,default:[]},
     funshow:{type:Array,default:[]}
 });
 module.exports.db = db;
