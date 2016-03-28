@@ -95,6 +95,35 @@ module.exports = function(app){
 			}
 		})
 	});
+    app.post('/sign',function(req,res){
+        console.log({user:req.body.username,key:req.body.keyword})
+        var sendObj = {user:req.body.username,key:req.body.keyword};
+        userModel.find(sendObj).exec(function(err,users){
+            var statusJSON;
+            console.log('users',users)
+            if(users.length>0){
+                statusJSON = {status:'error',msg:'用户已存在'};
+                res.send(JSON.stringify(statusJSON));
+            }else{
+				
+                var user = new userModel(sendObj);
+                user.save(function(err){
+                    if(err){
+                        console.log(err)
+                        statusJSON = {status:'error',msg:'注册用户失败'};
+                    }else{
+                        statusJSON = {status:'success',url:'/'};
+                    }
+                    userModel.findOne(sendObj,function(err,users){
+                        if(!err){
+                            req.session.user = users[0];
+                        }
+                    });
+                    res.end(statusJSON);
+                });
+            }
+        });
+    });
 	app.post('/api/save',function(req,res){
 		for(var d in req.body){
 			(function(d){
