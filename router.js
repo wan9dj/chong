@@ -80,10 +80,17 @@ module.exports = function(app){
 	})
 	//post routes
 	app.post('/login',function(req,res){
-		userModel.find({key:req.body.keyword}).exec(function(err,users){
-			if(err){ return console.log(err);}
-			if(users.length==1){ //判断存在key
-				req.session.user=users[0];
+        var params = {
+            user:req.body.username,
+            key:req.body.keyword
+        };
+		userModel.findOne(params).exec(function(err,user){
+			if(err){ 
+                res.send(JSON.stringify({status:'error',url:'/'}));
+                return;    
+            }
+			if(user){ //判断存在key
+				req.session.user=user;
 				var statusJSON = {status:'success',url:'/'};
 				res.send(JSON.stringify(statusJSON));
 				//res.redirect('/');
@@ -97,32 +104,32 @@ module.exports = function(app){
 	});
     app.post('/sign',function(req,res){
         console.log({user:req.body.username,key:req.body.keyword})
-        var sendObj = {user:req.body.username,key:req.body.keyword};
-        userModel.find(sendObj).exec(function(err,users){
-            var statusJSON;
-            console.log('users',users)
-            if(users.length>0){
-                statusJSON = {status:'error',msg:'用户已存在'};
-                res.send(JSON.stringify(statusJSON));
-            }else{
-				
-                var user = new userModel(sendObj);
-                user.save(function(err){
-                    if(err){
-                        console.log(err)
-                        statusJSON = {status:'error',msg:'注册用户失败'};
-                    }else{
-                        statusJSON = {status:'success',url:'/'};
-                    }
-                    userModel.findOne(sendObj,function(err,users){
-                        if(!err){
-                            req.session.user = users[0];
-                        }
-                    });
-                    res.end(statusJSON);
-                });
+        var params = {user:req.body.username,key:req.body.keyword};
+        userModel.count({
+            user:params.user
+        },function(err,count){
+            if(err){
+                res.send({status:'error',msg:err.errmsg});
+                return;    
             }
+            if(count){
+                res.send({status:'error',msg:'用户已注册'});
+                return;
+            }
+            var user = new userModel(params);
+            user.save(function(err,user){
+                if(err){
+                     res.send({status:'error',msg:err.errmsg});
+                     return;
+                }
+                req.session.user=user;
+                res.send({status:'success',url:'/'});
+            });
         });
+    });
+    app.get('/logout',function(req,res){
+        req.session.user = null;
+        res.redirect('/');
     });
 	app.post('/api/save',function(req,res){
 		for(var d in req.body){

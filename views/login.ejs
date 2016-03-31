@@ -2,17 +2,19 @@
 <html>
 	<head>
 		<link rel='stylesheet' type='text/css' href='/stylesheet/style.css' />
+        <link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.css
+" />
 	</head>
 	<body>
-		<form class='form-style loginform'>
+		<form class='form-group loginform'>
 			<fieldset>
 				<legend><%= title%></legend>
 				<label for="user">用户名:</label>
-				<input type="text" placeholder="请输入用户名" name="user" /><br><br>
+				<input type="text" class="form-control" placeholder="请输入用户名" name="user" /><br><br>
                 <label for="keyword">密　码:</label>
-				<input type="text" placeholder="请输入密码" name="keyword" /><br><br>
-				<input type="button" id="signInBtn" value="注册" />
-                <input type="button" id="signUpBtn" value="登录" />
+				<input type="password" class="form-control" placeholder="请输入密码" name="keyword" /><br><br>
+				<input type="button" class="btn btn-info" id="signInBtn" value="注册" />
+                <input type="button" class="btn btn-primary" id="signUpBtn" value="登录" />
 			</fieldset>
 		</form>
 
@@ -37,7 +39,10 @@
 				ajax.setRequestHeader("Content-Type","application/x-www-form-urlencoded");  
 				ajax.send('keyword='+document.forms[0].keyword.value+"&username="+document.forms[0].user.value);
 				ajax.onreadystatechange = function(){
-					if(ajax.status==200){
+					if(ajax.readyState != 4){
+                        return;
+                    }
+                    if(ajax.status==200){
 						var status = JSON.parse(ajax.responseText);
 						window.location.href = status.url;
 					};
@@ -51,7 +56,10 @@
 				ajax.setRequestHeader("Content-Type","application/x-www-form-urlencoded");  
 				ajax.send('keyword='+document.forms[0].keyword.value+"&username="+document.forms[0].user.value);
 				ajax.onreadystatechange = function(){
-					if(ajax.status==200){
+					if(ajax.readyState != 4){
+                        return;
+                    }
+                    if(ajax.status==200){
 						var status = JSON.parse(ajax.responseText);
                         if(status.status === 'error'){
                             alert(status.msg);
