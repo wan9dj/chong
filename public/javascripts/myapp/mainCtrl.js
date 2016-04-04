@@ -1,6 +1,6 @@
 (function(){
 	var app = angular.module('myapp');
-	app.controller('mainCtrl',function($scope,$timeout,$filter,$http,moviestore,mfilterstore,$stateParams){ 	
+	app.controller('mainCtrl',function($scope,$timeout,$filter,$http,moviestore,mfilterstore,userStorage,$stateParams){ 	
 		
 		//控制
 		var mfilter  = mfilterstore.filter;
@@ -24,7 +24,13 @@
 		$scope.Refresh = function(){
 			moviestore.get(limit);
 		};
-
+        $scope.logout= function(){
+            userStorage.logout().success(function(){
+                alert('退出成功');
+                location.reload();
+            });
+        };
+        
 		var cping = $scope.cping = {};
 		$scope.showXX = function(index){ // 通过传递索引改变显示内容
 			$scope.tmpMovie = movies.slice(index,index+1);

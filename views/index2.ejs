@@ -7,10 +7,16 @@
 		<script type="text/javascript" src="//cdn.bootcss.com/angular-ui-router/0.2.15/angular-ui-router.min.js"></script>-->
 		<script type="text/javascript" src="/javascripts/angular.js"></script>
 		<script type="text/javascript" src="/javascripts/angular-ui-router.js"></script>
+        
+        <!-- 获取数据 -->
+        <script>
+            var loginUser = <%- userObj%>;
+        </script>
 		<!-- myapp -->
 		<script type="text/javascript" src="/javascripts/myapp/app.js"></script>
 		<script type="text/javascript" src="/javascripts/myapp/moviesStorage.js"></script>
 		<script type="text/javascript" src="/javascripts/myapp/mfilterStorage.js"></script>
+        <script type="text/javascript" src="/javascripts/myapp/userStorage.js"></script>
 		<script type="text/javascript" src="/javascripts/myapp/mainCtrl.js"></script> 
 		<script type="text/javascript" src="/javascripts/myapp/filters.js"></script>
 		<!-- otherjs -->
@@ -60,7 +66,7 @@
 						</div>
 					</li>
 				</ul>
-				<div class="rightBox">
+				<!--<div class="rightBox">
 					<form class="searchBox" ng-submit="searchList()">
 						<p>
 							<input type="text" ng-model="searchStr" placeholder="搜索电影" />
@@ -80,10 +86,10 @@
 							</p>
 						</div>
 					</div>
-				</div>
+				</div>-->
 				<div id="refresh">
 					<i ng-click="Refresh()" class="icon-refresh">再换一批</i>
-                    <i ng-click="Logout()" class="icon-off">退出登录</i>
+                    <i ng-click="logout()" class="icon-off">退出登录</i>
 				</div>
 			</div>
 		</script>

@@ -4,7 +4,7 @@ var db = mongoose.createConnection(setting.host,setting.db);
 
 var hSchema = new mongoose.Schema({
     title:{type:String,unique:true},   //定义一个属性name,用来保存标题,类型为String
-    //fan:{type:String,default:''},
+    fan:{type:String,default:'',unique:true},
     img:String,
     tags:Array,
     pv:{type:Number,default:0},
@@ -15,8 +15,8 @@ var hSchema = new mongoose.Schema({
     isDel:{type:Boolean,default:false}
     });
 var userSchema = new mongoose.Schema({
-    user:String,   //定义一个属性name,用来保存用户名,类型为String
-    key:{type:String,unique:true},// 定义一个key值,用来保存用户名的登录key值
+    user:{type:String,unique:true},   //定义一个属性name,用来保存用户名,类型为String
+    key:String,// 定义一个key值,用来保存用户名的登录key值
     fping:{type:Array,default:[]},
     funshow:{type:Array,default:[]}
 });
